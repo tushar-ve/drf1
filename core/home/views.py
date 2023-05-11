@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -42,4 +42,25 @@ def update_student(request, id):
     except Exception as e:
          return Response({'status':403, 'message':'invalid id'})
 
-# Create your views here.
+
+
+
+
+
+@api_view(['DELETE'])
+
+def delete_student(request,id):
+
+  try:
+
+    student_obj=Student.objects.get(id=id)
+
+    student_obj.delete()
+
+    return Response({'status':200,'message':'deleted'})
+
+  except Exception as e:
+
+    print(e)
+
+    return Response({'status':403,'message':'invalid id'})
